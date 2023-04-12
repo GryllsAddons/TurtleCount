@@ -73,12 +73,12 @@ function TurtleCount:UpdateText(count)
 end
 
 function TurtleCount:ServerInfo()
-    DEFAULT_CHAT_FRAME.editBox:SetText(".server info") ChatEdit_SendText(DEFAULT_CHAT_FRAME.editBox, 0)
+    SendChatMessage(".server info")
     queried = true    
 end
 
 function TurtleCount:RefreshTime()
-    refreshTime = GetTime() + 10
+    refreshTime = GetTime() + 15
 end
 
 -- Examples of Turtle WoW Server Info:
