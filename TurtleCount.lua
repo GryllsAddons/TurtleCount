@@ -78,7 +78,7 @@ function TurtleCount:ServerInfo()
 end
 
 function TurtleCount:RefreshTime()
-    refreshTime = GetTime() + 15
+    refreshTime = GetTime() + 60
 end
 
 -- Examples of Turtle WoW Server Info:
