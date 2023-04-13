@@ -1,5 +1,8 @@
 local turtle = (TargetHPText or TargetHPPercText)
-if not turtle then return end
+if not turtle then
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff98Turtle|cffe6b300Count|r: This addon will only function correctly for Turtle WoW.")
+    return
+end
 
 local TurtleCount = CreateFrame("Button", "TurtleCount", Minimap)
 TurtleCount:Hide()
