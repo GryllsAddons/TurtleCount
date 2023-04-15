@@ -81,7 +81,7 @@ function TurtleCount:ServerInfo()
 end
 
 function TurtleCount:RefreshTime()
-    refreshTime = GetTime() + 10
+    refreshTime = GetTime() + 60
 end
 
 function TurtleCount:enableMessages()
