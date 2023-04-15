@@ -81,7 +81,15 @@ function TurtleCount:ServerInfo()
 end
 
 function TurtleCount:RefreshTime()
-    refreshTime = GetTime() + 60
+    refreshTime = GetTime() + 10
+end
+
+function TurtleCount:enableMessages()
+	ChatFrame_AddMessageGroup(ChatFrame1, "SYSTEM")
+end
+
+function TurtleCount:disableMessages()
+	ChatFrame_RemoveMessageGroup(ChatFrame1, "SYSTEM")
 end
 
 -- Examples of Turtle WoW Server Info:
@@ -120,14 +128,14 @@ TurtleCount:SetScript("OnEvent", function()
     end
 
     if serverTime then
-        ChatFrame_AddMessageGroup(ChatFrame1, "SYSTEM")
+        TurtleCount:enableMessages()
         queried = nil
     end
 end)
 
 TurtleCount:SetScript("OnUpdate", function()
     if (refreshTime) and (GetTime() > refreshTime) then
-        ChatFrame_RemoveMessageGroup(ChatFrame1, "SYSTEM")
+        TurtleCount:disableMessages()
         TurtleCount:ServerInfo()
         TurtleCount:RefreshTime()
     end
@@ -149,3 +157,4 @@ end)
 
 TurtleCount:Position()
 TurtleCount:Show()
+TurtleCount:enableMessages()
