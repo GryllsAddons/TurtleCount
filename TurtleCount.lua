@@ -85,11 +85,11 @@ function TurtleCount:RefreshTime()
 end
 
 function TurtleCount:enableMessages()
-	ChatFrame_AddMessageGroup(ChatFrame1, "SYSTEM")
+    ChatFrame1:RegisterEvent("CHAT_MSG_SYSTEM")
 end
 
 function TurtleCount:disableMessages()
-	ChatFrame_RemoveMessageGroup(ChatFrame1, "SYSTEM")
+    ChatFrame1:UnregisterEvent("CHAT_MSG_SYSTEM")
 end
 
 -- Examples of Turtle WoW Server Info:
