@@ -81,15 +81,7 @@ function TurtleCount:ServerInfo()
 end
 
 function TurtleCount:RefreshTime()
-    refreshTime = GetTime() + 60
-end
-
-function TurtleCount:enableMessages()
-    ChatFrame1:RegisterEvent("CHAT_MSG_SYSTEM")
-end
-
-function TurtleCount:disableMessages()
-    ChatFrame1:UnregisterEvent("CHAT_MSG_SYSTEM")
+    refreshTime = GetTime() + 10
 end
 
 -- Examples of Turtle WoW Server Info:
@@ -97,45 +89,46 @@ end
 -- Server uptime: 11 Hours 22 Minutes 33 Seconds.
 -- Server Time: Mon, [01.01.2023] 01:02:03
 
-TurtleCount:RegisterEvent("CHAT_MSG_SYSTEM")
-TurtleCount:SetScript("OnEvent", function()
-    if not queried then return end
-    local online
-    local max
-    local serverTime
+local HookChatFrame_OnEvent = ChatFrame_OnEvent
+function ChatFrame_OnEvent(event)    
+	if (event == "CHAT_MSG_SYSTEM") then
+        if queried then
+            _, _, online = string.find(arg1,"Players online:%s*(%d+)")
+            _, _, max = string.find(arg1,"Max online:%s*(%d+)")
+            _, _, serverTime = string.find(arg1,"Server Time:%s*(.+)")
 
-    _, _, online = string.find(arg1,"Players online:%s*(%d+)")
-    _, _, max = string.find(arg1,"Max online:%s*(%d+)")
-    _, _, serverTime = string.find(arg1,"Server Time:%s*(.+)")
-
-    if (online and max) then        
-        onlineCount = online
-        maxCount = max
-        TurtleCount:UpdateText(onlineCount)
-        
-        if (not highCount) then
-            highCount = onlineCount
-            lowCount = onlineCount
+            if (online and max) then        
+                onlineCount = online
+                maxCount = max
+                TurtleCount:UpdateText(onlineCount)
+                
+                if (not highCount) then
+                    highCount = onlineCount
+                    lowCount = onlineCount
+                end
+            
+                if (highCount < onlineCount) then
+                    highCount = onlineCount
+                end
+            
+                if ((lowCount > onlineCount)) then
+                    lowCount = onlineCount
+                end        
+            end           
+           
+            if not serverTime then 
+                return
+            else
+                queried = nil
+                return
+            end 
         end
-    
-        if (highCount < onlineCount) then
-            highCount = onlineCount
-        end
-    
-        if ((lowCount > onlineCount)) then
-            lowCount = onlineCount
-        end        
     end
-
-    if serverTime then
-        TurtleCount:enableMessages()
-        queried = nil
-    end
-end)
+    HookChatFrame_OnEvent(event)
+end
 
 TurtleCount:SetScript("OnUpdate", function()
     if (refreshTime) and (GetTime() > refreshTime) then
-        TurtleCount:disableMessages()
         TurtleCount:ServerInfo()
         TurtleCount:RefreshTime()
     end
@@ -157,4 +150,3 @@ end)
 
 TurtleCount:Position()
 TurtleCount:Show()
-TurtleCount:enableMessages()
