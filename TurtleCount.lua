@@ -135,6 +135,7 @@ TurtleCount:SetScript("OnUpdate", function()
 end)
 
 TurtleCount:SetScript("OnEnter", function()
+    if not highCount then return end
     GameTooltip:ClearLines()
     GameTooltip:SetOwner(this, ANCHOR_BOTTOMLEFT)
     GameTooltip:AddLine("Turtles Online")
