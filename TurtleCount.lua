@@ -93,9 +93,9 @@ local HookChatFrame_OnEvent = ChatFrame_OnEvent
 function ChatFrame_OnEvent(event)    
 	if (event == "CHAT_MSG_SYSTEM") then
         if queried then
-            _, _, online = string.find(arg1,"Players online:%s*(%d+)")
-            _, _, max = string.find(arg1,"Max online:%s*(%d+)")
-            _, _, serverTime = string.find(arg1,"Server Time:%s*(.+)")
+            local _, _, online = string.find(arg1,"Players online:%s*(%d+)")
+            local _, _, max = string.find(arg1,"Max online:%s*(%d+)")
+            local _, _, serverTime = string.find(arg1,"Server Time:%s*(.+)")
 
             if (online and max) then        
                 onlineCount = online
