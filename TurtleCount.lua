@@ -151,3 +151,5 @@ end)
 
 TurtleCount:Position()
 TurtleCount:Show()
+
+DEFAULT_CHAT_FRAME:AddMessage("|cff00ff98Turtle|rCount Loaded!")
