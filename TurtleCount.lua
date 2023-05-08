@@ -47,6 +47,7 @@ TurtleCount.text = TurtleCount:CreateFontString("Status", "LOW", "GameFontNormal
 TurtleCount.text:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
 TurtleCount.text:SetPoint("RIGHT", TurtleCount, "RIGHT", -5, 1)
 TurtleCount.text:SetFontObject(GameFontWhite)
+TurtleCount.text:SetText("0")
 
 TurtleCount.icon = TurtleCount:CreateTexture(nil, 'ARTWORK')
 TurtleCount.icon:SetWidth(13)
@@ -54,7 +55,7 @@ TurtleCount.icon:SetHeight(13)
 TurtleCount.icon:SetPoint("LEFT", TurtleCount, "LEFT", 5, 0)
 TurtleCount.icon:SetTexture("Interface\\Addons\\TurtleCount\\img\\turtle.tga")
 
-local refreshTime = 0
+local refreshTime = GetTime() + 1
 local onlineCount
 local maxCount
 local highCount
