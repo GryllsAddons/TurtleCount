@@ -61,6 +61,8 @@ local maxCount
 local highCount
 local lowCount
 local queried
+local queriedTime = 0
+local queriedTimeout = 1
 
 TurtleCount.Commas = function(number)
     number = tonumber(number)
@@ -78,6 +80,7 @@ end
 
 function TurtleCount:ServerInfo()
     SendChatMessage(".server info")
+    queriedTime = GetTime() 
     queried = true    
 end
 
@@ -115,14 +118,17 @@ function ChatFrame_OnEvent(event)
                 if ((lowCount > onlineCount)) then
                     lowCount = onlineCount
                 end        
-            end           
-           
-            if not serverTime then 
+            end
+
+            local elapsed = GetTime() - queriedTime
+            if (elapsed < queriedTimeout) then
+                if serverTime then                    
+                    queried = nil                    
+                end
                 return
             else
                 queried = nil
-                return
-            end 
+            end
         end
     end
     HookChatFrame_OnEvent(event)
